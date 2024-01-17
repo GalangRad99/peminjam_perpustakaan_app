@@ -7,6 +7,7 @@ abstract class Routes {
   static const LOGIN = _Paths.LOGIN;
   static const REGISTER = _Paths.REGISTER;
   static const PEMINJAMAN = _Paths.PEMINJAMAN;
+  static const ADD_PEMINJAMAN = _Paths.ADD_PEMINJAMAN;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const PEMINJAMAN = '/peminjaman';
+  static const ADD_PEMINJAMAN = '/add-peminjaman';
 }
