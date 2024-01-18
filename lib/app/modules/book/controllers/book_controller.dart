@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:peminjam_perpustakaan_app/app/data/constant/endpoint.dart';
-import 'package:peminjam_perpustakaan_app/app/data/model/response_pinjam.dart';
+import 'package:peminjam_perpustakaan_app/app/data/model/response_book.dart';
 import 'package:peminjam_perpustakaan_app/app/data/provider/api_provider.dart';
 
-class PeminjamanController extends GetxController with StateMixin<List<DataPinjam>>{
-  //TODO: Implement PeminjamanController
+class BookController extends GetxController with StateMixin<List<DataBook>>{
+  //TODO: Implement BookController
 
   final count = 0.obs;
   @override
@@ -27,23 +27,22 @@ class PeminjamanController extends GetxController with StateMixin<List<DataPinja
   void increment() => count.value++;
   Future<void> getData() async {
     change(null, status: RxStatus.loading());
-    try {
-      final response = await ApiProvider.instance().get(Endpoint
-          .pinjam);
-      if (response.statusCode == 200) {
-        final ResponsePinjam responsePinjam = ResponsePinjam.fromJson(response.data);
-        if (responsePinjam.data!.isEmpty) {
+    try{
+      final response = await ApiProvider.instance().get(Endpoint.book);
+      if(response.statusCode == 200){
+        final ResponseBook responseBook = ResponseBook.fromJson(response.data);
+        if(responseBook.data!.isEmpty){
           change(null, status: RxStatus.empty());
-        } else {
-          change(responsePinjam.data, status: RxStatus.success());
+        }else{
+          change(responseBook.data, status: RxStatus.success());
         }
-      } else {
+      }else{
         change(null, status: RxStatus.error("Gagal mengambil data"));
       }
-    } on DioException catch (e) {
+    }on DioException catch(e){
       change(null, status: RxStatus.error("Error ${e.message}"));
-    } catch (e) {
-      change(null, status: RxStatus.error("Error $e"));
+    }catch(e){
+      change(null, status: RxStatus.error("Error : $e"));
     }
   }
 }
